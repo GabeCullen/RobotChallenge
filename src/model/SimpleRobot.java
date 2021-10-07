@@ -39,13 +39,6 @@ public class SimpleRobot implements Robot{
 		public int getYPosition() {
 			return this.yPosition;
 		}
-		
-		@Override
-		public String toString() 
-		{
-			return String.format(
-					"Output: %s,%s,%s", xPosition, yPosition, facingDirection);  
-		}
 
 
 		@Override
@@ -64,6 +57,13 @@ public class SimpleRobot implements Robot{
 		@Override
 		public void setYPosition(int yPosition) {
 			this.yPosition = yPosition;
+		}
+		
+		@Override
+		public String toString() 
+		{
+			return String.format(
+					"Output: %s,%s,%s", xPosition, yPosition, facingDirection);  
 		}
 
 }

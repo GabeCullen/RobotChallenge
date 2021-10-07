@@ -1,6 +1,5 @@
 package model;
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -17,6 +16,8 @@ public class RobotChallenge {
 		
 		String[] commands;	
 		Robot[] robots = null;
+		
+		// Location of commands.txt file. This file can be changed 
 		String commandsFileLocation = "./commands.txt";
 
 		
@@ -58,16 +59,17 @@ public class RobotChallenge {
 		//(If multiple robots were added this would be done based off a ROBOT <number> command) 
 		Robot activeRobot = robots[0];
 		
+		// call relevant functions based on commands read from file
 		for (int i = 0; i < commandsArray.size(); i++) {
 			switch(commandsArray.get(i)) {
 			  case "MOVE":
 				  move(activeRobot);
 			    break;
 			  case "LEFT":
-				 moveLeft(activeRobot);
+				 turnLeft(activeRobot);
 			    break;
 			  case "RIGHT":
-				  moveRight(activeRobot);
+				  turnRight(activeRobot);
 			    break;
 			  case "REPORT":
 				  //for(Robot robot : robots)
@@ -77,6 +79,7 @@ public class RobotChallenge {
 		}
 	}
 	
+	// get next available robot name (increasing by number)
 	public static String robotName() {
 		String fullName = null;
 		String nameBegining = "Robot ";
@@ -87,6 +90,7 @@ public class RobotChallenge {
 		return fullName;
 	}
 	
+	// move robot one point in the direction its facing
 	public static void move(Robot robot) {
 		if (robot.getFacingDirection().equalsIgnoreCase("North")) {
 	    	moveNorth(robot);
@@ -99,7 +103,8 @@ public class RobotChallenge {
 	    }
 	}
 	
-	public static void moveLeft(Robot robot) {
+	// rotate left by changing the facing direction
+	public static void turnLeft(Robot robot) {
 		if (robot.getFacingDirection().equalsIgnoreCase("North")) {
 			robot.setFacingDirection("WEST");
 	    } else if (robot.getFacingDirection().equalsIgnoreCase("South")) {
@@ -111,7 +116,8 @@ public class RobotChallenge {
 	    }
 	}
 	
-	public static void moveRight(Robot robot) {
+	// rotate right by changing the facing direction
+	public static void turnRight(Robot robot) {
 		if (robot.getFacingDirection().equalsIgnoreCase("North")) {
 			robot.setFacingDirection("EAST");
 	    } else if (robot.getFacingDirection().equalsIgnoreCase("South")) {
@@ -123,6 +129,7 @@ public class RobotChallenge {
 	    }
 	}
 	
+	// move north by increasing the y position
 	public static void moveNorth(Robot robot) {
 		if (robot.getYPosition() != maxXY) {
 			int i = robot.getYPosition() + 1;
@@ -130,6 +137,8 @@ public class RobotChallenge {
 		}
 		robot.setYPosition(robot.getYPosition());
 	}
+	
+	// move south by reducing the y position
 	public static void moveSouth(Robot robot) {
 		if (robot.getYPosition() != minXY) {
 			int i = robot.getYPosition() - 1;
@@ -137,6 +146,8 @@ public class RobotChallenge {
 		}
 		robot.setYPosition(robot.getYPosition());
 	}
+	
+	// move east by increasing the x position
 	public static void moveEast(Robot robot) {
 		if (robot.getXPosition() != maxXY) {
 			int i = robot.getXPosition() + 1;
@@ -144,6 +155,8 @@ public class RobotChallenge {
 		}
 		robot.setXPosition(robot.getXPosition());
 	}
+	
+	// move west by reducing the x position
 	public static void moveWest(Robot robot) {
 		if (robot.getXPosition() != minXY) {
 			int i = robot.getXPosition() - 1;
